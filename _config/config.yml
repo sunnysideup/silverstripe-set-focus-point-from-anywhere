@@ -1,1 +1,6 @@
 # see https://docs.silverstripe.org/en/developer_guides/configuration/configuration/
+SilverStripe\Admin\LeftAndMain:
+  extra_requirements_javascript:
+    - "sunnysideup/set-focus-point-from-anywhere:client/dist/app.js"
+  extra_requirements_css:
+    - "sunnysideup/set-focus-point-from-anywhere:client/dist/app.css"
