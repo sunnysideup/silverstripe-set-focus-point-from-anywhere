@@ -10,11 +10,14 @@ use SilverStripe\Control\HTTPRequest;
 use SilverStripe\Control\HTTPResponse;
 use SilverStripe\Core\Convert;
 use SilverStripe\Forms\FieldGroup;
+use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\FormField;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\TextField;
+use SilverStripe\ORM\FieldType\DBHTMLText;
 use SilverStripe\Versioned\Versioned;
 use Sunnysideup\PerfectCmsImages\Forms\PerfectCmsImagesUploadField;
+use Sunnysideup\SetFocusPointFromAnywhere\Control\SetImageFocusFieldController;
 
 /**
  * FocusPointField class.
@@ -27,6 +30,11 @@ class SetImageFocusField extends FieldGroup
 
     private static $url_handlers = [
         '$Action!/$ID' => '$Action'
+    ];
+
+
+    private static $allowed_actions = [
+        'updatefocuspoint'
     ];
 
     /**
@@ -48,32 +56,14 @@ class SetImageFocusField extends FieldGroup
 
     protected $schemaComponent = 'SetImageFocusField';
 
+    protected ?bool $detailsAdded = false;
     protected ?Image $image = null;
 
     public function __construct(string $name, ?string $title = null, ?Image $image = null)
     {
-
-
-        if ($image && $image->exists() && $image instanceof Image) {
-            $this->image = $image;
-
-            // Create the fields
+        $this->image = $image;
+        if ($this->HasImage()) {
             $fields = [
-                LiteralField::create(
-                    'FocusPointPreview' . $image->ID,
-                    '<div
-                        class="sunny-side-up-set-focus-point"
-                        data-image-width="' . $image->getWidth() . '"
-                        data-image-height="' . $image->getHeight() . '"
-                        data-image-id="' . $image->ID . '"
-                        data-update-url="' . Director::absoluteURL($this->Link('updatefocuspoint/' . $image->ID)) . '"
-                    >
-                        <img
-                            src="' . $image->Link() . '"
-                            alt="' . Convert::raw2att($image->Title) . '"
-                        />
-                    </div>'
-                ),
                 LiteralField::create(
                     'FocusPointInstructions',
                     '<p class="help-block">Click on the subject of the image to ensure it is not lost during cropping.</p>'
@@ -87,9 +77,6 @@ class SetImageFocusField extends FieldGroup
                 )
             ];
         }
-
-        $this->setName($name)->setValue('');
-
         parent::__construct($title, $fields);
     }
 
@@ -100,7 +87,6 @@ class SetImageFocusField extends FieldGroup
             'Click on the subject of the image to ensure it is not lost during cropping'
         );
     }
-
 
 
     /**
@@ -159,5 +145,72 @@ class SetImageFocusField extends FieldGroup
             return 'OK';
         }
         return 'Not an image.';
+    }
+
+
+
+    protected function HasImage()
+    {
+        return $this->image && $this->image->exists() && $this->image instanceof Image;
+    }
+
+    /**
+     * Returns the form field.
+     *
+     * Although FieldHolder is generally what is inserted into templates, all of the field holder
+     * templates make use of $Field. It's expected that FieldHolder will give you the "complete"
+     * representation of the field on the form, whereas Field will give you the core editing widget,
+     * such as an input tag.
+     *
+     * @param array $properties
+     * @return DBHTMLText
+     */
+    public function Field($properties = []): DBHTMLText
+    {
+        if (!$this->detailsAdded && $this->HasImage()) {
+            $link = SetImageFocusFieldController::get_link_for_image($this->image);
+            $focus = $this->image->dbObject('FocusPoint');
+            $width = self::config()->get('max_width');
+            $data = [
+                'tabindex' => null,
+                'type' => null,
+                'value' => null,
+                'data-width' => $this->image->getWidth(),
+                'data-current-x' => $focus->getX(),
+                'data-current-y' => $focus->getY(),
+                'data-height' => $this->image->getHeight(),
+                'data-id' => $this->image->ID,
+                'data-update-url' => Director::absoluteURL($link),
+                'class' => 'sunny-side-up-set-focus-point',
+                'title' => ($this->tag === 'fieldset') ? null : $this->legend,
+                'style' => 'width: ' . $width . 'px!important; overflow: visible;',
+            ];
+            $this->children->push(
+                LiteralField::create(
+                    'SetFocusPointDetails',
+                    '<div ' . $this->arrayToAttributes($data) . '>
+                        <img
+                            src="' . $this->image->Link() . '"
+                            alt="' . Convert::raw2att($this->image->Title) . '"
+                            width="' . $width . '"
+                        />
+                        <div class="ssu-focus-marker"></div>
+                    </div>'
+                )
+            );
+            $this->detailsAdded = true;
+        }
+        return parent::Field($properties);
+    }
+
+    protected function arrayToAttributes(array $attributes)
+    {
+        $string = '';
+        foreach ($attributes as $key => $value) {
+            if ($value !== null) {
+                $string .= ' ' . $key . '="' . Convert::raw2att($value) . '"';
+            }
+        }
+        return $string;
     }
 }

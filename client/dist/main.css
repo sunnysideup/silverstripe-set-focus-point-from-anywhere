@@ -1,0 +1,22 @@
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].oneOf[1].use[1]!./node_modules/resolve-url-loader/index.js??ruleSet[1].rules[4].oneOf[1].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].oneOf[1].use[3]!../../vendor/sunnysideup/set-focus-point-from-anywhere/client/src/style.scss ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************/
+.sunny-side-up-set-focus-point {
+  padding: 0 !important;
+  border: 1px solid red !important;
+  box-sizing: border-box;
+  .ssu-focus-marker {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: red;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    /* do not block clicks */
+    border: 2px solid white;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+  }
+}
+
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibWFpbi5jc3MiLCJtYXBwaW5ncyI6Ijs7O0FBQUE7RUFDRTtFQUNBO0VBQ0E7RUFHQTtJQUNFO0lBQ0E7SUFDQTtJQUNBO0lBQ0E7SUFDQTtJQUNBO0lBQ0E7SUFDQTtJQUNBO0VDREY7QUFDRixDIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vcHVibGljLy4uLy4uL3ZlbmRvci9zdW5ueXNpZGV1cC9zZXQtZm9jdXMtcG9pbnQtZnJvbS1hbnl3aGVyZS9jbGllbnQvc3JjL3Njc3Mvc3Vubnktc2lkZS11cC1mb2N1cy1wb2ludC1zZXR0ZXIuY3NzIiwid2VicGFjazovL3B1YmxpYy8uLi8uLi92ZW5kb3Ivc3VubnlzaWRldXAvc2V0LWZvY3VzLXBvaW50LWZyb20tYW55d2hlcmUvY2xpZW50L3NyYy9zdHlsZS5zY3NzIl0sInNvdXJjZXNDb250ZW50IjpbIi5zdW5ueS1zaWRlLXVwLXNldC1mb2N1cy1wb2ludCB7XG4gIHBhZGRpbmc6IDAgIWltcG9ydGFudDtcbiAgYm9yZGVyOiAxcHggc29saWQgcmVkICFpbXBvcnRhbnQ7XG4gIGJveC1zaXppbmc6IGJvcmRlci1ib3g7XG5cblxuICAuc3N1LWZvY3VzLW1hcmtlciB7XG4gICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgIHdpZHRoOiAxMHB4O1xuICAgIGhlaWdodDogMTBweDtcbiAgICBiYWNrZ3JvdW5kOiByZWQ7XG4gICAgYm9yZGVyLXJhZGl1czogNTAlO1xuICAgIHRyYW5zZm9ybTogdHJhbnNsYXRlKC01MCUsIC01MCUpO1xuICAgIHBvaW50ZXItZXZlbnRzOiBub25lO1xuICAgIC8qIGRvIG5vdCBibG9jayBjbGlja3MgKi9cbiAgICBib3JkZXI6IDJweCBzb2xpZCB3aGl0ZTtcbiAgICBib3gtc2hhZG93OiAwIDAgNHB4IHJnYmEoMCwgMCwgMCwgMC42KTtcbiAgfVxufSIsIi5zdW5ueS1zaWRlLXVwLXNldC1mb2N1cy1wb2ludCB7XG4gIHBhZGRpbmc6IDAgIWltcG9ydGFudDtcbiAgYm9yZGVyOiAxcHggc29saWQgcmVkICFpbXBvcnRhbnQ7XG4gIGJveC1zaXppbmc6IGJvcmRlci1ib3g7XG4gIC5zc3UtZm9jdXMtbWFya2VyIHtcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgd2lkdGg6IDEwcHg7XG4gICAgaGVpZ2h0OiAxMHB4O1xuICAgIGJhY2tncm91bmQ6IHJlZDtcbiAgICBib3JkZXItcmFkaXVzOiA1MCU7XG4gICAgdHJhbnNmb3JtOiB0cmFuc2xhdGUoLTUwJSwgLTUwJSk7XG4gICAgcG9pbnRlci1ldmVudHM6IG5vbmU7XG4gICAgLyogZG8gbm90IGJsb2NrIGNsaWNrcyAqL1xuICAgIGJvcmRlcjogMnB4IHNvbGlkIHdoaXRlO1xuICAgIGJveC1zaGFkb3c6IDAgMCA0cHggcmdiYSgwLCAwLCAwLCAwLjYpO1xuICB9XG59Il0sIm5hbWVzIjpbXSwiaWdub3JlTGlzdCI6W10sInNvdXJjZVJvb3QiOiIifQ==*/

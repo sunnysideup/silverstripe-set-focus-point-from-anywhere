@@ -7,6 +7,7 @@ use SilverStripe\Assets\Storage\AssetContainer;
 use SilverStripe\Control\Controller;
 use SilverStripe\Control\Director;
 use SilverStripe\Control\HTTPRequest;
+use SilverStripe\Core\Config\Config;
 use SilverStripe\Forms\FieldGroup;
 use SilverStripe\Forms\FormField;
 use SilverStripe\Forms\LiteralField;
@@ -23,6 +24,11 @@ use Sunnysideup\PerfectCmsImages\Forms\PerfectCmsImagesUploadField;
 class SetImageFocusFieldController extends Controller
 {
     private static string $url_segment = 'admin/set-image-focus-point';
+
+    public static function get_link_for_image($image): string
+    {
+        return Director::baseURL() . Config::inst()->get(self::class, 'url_segment') . '/updatefocuspoint/' . $image->ID . '/';
+    }
 
     private static array $allowed_actions = [
         'updatefocuspoint',
@@ -48,7 +54,7 @@ class SetImageFocusFieldController extends Controller
 
     protected function setFocusPoint(Image $image, $x, $y)
     {
-        $focusPoint = $image->dbField('FocusPoint');
+        $focusPoint = $image->dbObject('FocusPoint');
         if ($image instanceof Image) {
             $isPublishedAndNotModified = $image->isPublished() && !$image->isModifiedOnDraft();
             if ($x > 1 || $x < -1) {

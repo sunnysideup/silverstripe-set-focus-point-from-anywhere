@@ -1,0 +1,19 @@
+.sunny-side-up-set-focus-point {
+  padding: 0 !important;
+  border: 1px solid red !important;
+  box-sizing: border-box;
+
+
+  .ssu-focus-marker {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: red;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    /* do not block clicks */
+    border: 2px solid white;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+  }
+}

@@ -1,0 +1,8 @@
+---
+name: SetFocusPointFromAnywhereRoutes
+Before:
+  - "#adminroutes"
+---
+SilverStripe\Control\Director:
+  rules:
+    "admin/set-image-focus-point//$Action/$ID/$Name": Sunnysideup\SetFocusPointFromAnywhere\Control\SetImageFocusFieldController
