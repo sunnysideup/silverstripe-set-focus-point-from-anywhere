@@ -1,6 +1,0 @@
-{
-  "dist/app.js": "./app.js",
-  "dist/main.css": "./main.css",
-  "dist/editor.css": "./editor.css",
-  "dist/runtime.js": "./runtime.js"
-}
