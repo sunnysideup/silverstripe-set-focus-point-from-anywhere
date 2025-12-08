@@ -52,9 +52,9 @@ class SetImageFocusField extends FieldGroup
      */
     private static int $max_height = 150;
 
-    protected $schemaDataType = FormField::SCHEMA_DATA_TYPE_CUSTOM;
+    // protected $schemaDataType = FormField::SCHEMA_DATA_TYPE_CUSTOM;
 
-    protected $schemaComponent = 'SetImageFocusField';
+    protected $schemaComponent = 'FieldGroup';
 
     protected ?bool $detailsAdded = false;
     protected ?Image $image = null;
@@ -69,6 +69,36 @@ class SetImageFocusField extends FieldGroup
                     '<p class="help-block">Click on the subject of the image to ensure it is not lost during cropping.</p>'
                 )
             ];
+            $link = SetImageFocusFieldController::get_link_for_image($this->image);
+            $focus = $this->image->dbObject('FocusPoint');
+            $width = self::config()->get('max_width');
+            $data = [
+                'tabindex' => null,
+                'type' => null,
+                'value' => null,
+                'data-width' => $this->image->getWidth(),
+                'data-current-x' => $focus->getX(),
+                'data-current-y' => $focus->getY(),
+                'data-height' => $this->image->getHeight(),
+                'data-id' => $this->image->ID,
+                'data-update-url' => Director::absoluteURL($link),
+                'class' => 'sunny-side-up-set-focus-point',
+                'title' => ($this->tag === 'fieldset') ? null : $this->legend,
+                'style' => 'width: ' . $width . 'px!important; overflow: visible;',
+            ];
+            $fields[] = (
+                LiteralField::create(
+                    'SetFocusPointDetails',
+                    '<div ' . $this->arrayToAttributes($data) . '>
+                        <img
+                            src="' . $this->image->Link() . '"
+                            alt="' . Convert::raw2att($this->image->Title) . '"
+                            width="' . $width . '"
+                        />
+                        <div class="ssu-focus-marker"></div>
+                    </div>'
+                )
+            );
         } else {
             $fields = [
                 LiteralField::create(
@@ -77,6 +107,7 @@ class SetImageFocusField extends FieldGroup
                 )
             ];
         }
+
         parent::__construct($title, $fields);
     }
 
@@ -167,39 +198,7 @@ class SetImageFocusField extends FieldGroup
      */
     public function Field($properties = []): DBHTMLText
     {
-        if (!$this->detailsAdded && $this->HasImage()) {
-            $link = SetImageFocusFieldController::get_link_for_image($this->image);
-            $focus = $this->image->dbObject('FocusPoint');
-            $width = self::config()->get('max_width');
-            $data = [
-                'tabindex' => null,
-                'type' => null,
-                'value' => null,
-                'data-width' => $this->image->getWidth(),
-                'data-current-x' => $focus->getX(),
-                'data-current-y' => $focus->getY(),
-                'data-height' => $this->image->getHeight(),
-                'data-id' => $this->image->ID,
-                'data-update-url' => Director::absoluteURL($link),
-                'class' => 'sunny-side-up-set-focus-point',
-                'title' => ($this->tag === 'fieldset') ? null : $this->legend,
-                'style' => 'width: ' . $width . 'px!important; overflow: visible;',
-            ];
-            $this->children->push(
-                LiteralField::create(
-                    'SetFocusPointDetails',
-                    '<div ' . $this->arrayToAttributes($data) . '>
-                        <img
-                            src="' . $this->image->Link() . '"
-                            alt="' . Convert::raw2att($this->image->Title) . '"
-                            width="' . $width . '"
-                        />
-                        <div class="ssu-focus-marker"></div>
-                    </div>'
-                )
-            );
-            $this->detailsAdded = true;
-        }
+
         return parent::Field($properties);
     }
 
