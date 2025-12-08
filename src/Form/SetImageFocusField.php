@@ -63,12 +63,6 @@ class SetImageFocusField extends FieldGroup
     {
         $this->image = $image;
         if ($this->HasImage()) {
-            $fields = [
-                LiteralField::create(
-                    'FocusPointInstructions',
-                    '<p class="help-block">Click on the subject of the image to ensure it is not lost during cropping.</p>'
-                )
-            ];
             $link = SetImageFocusFieldController::get_link_for_image($this->image);
             $focus = $this->image->dbObject('FocusPoint');
             $width = self::config()->get('max_width');
@@ -103,7 +97,7 @@ class SetImageFocusField extends FieldGroup
             $fields = [
                 LiteralField::create(
                     'NoImageSelected' . random_int(0, 9999),
-                    '<p class="help-block">No image selected. To set a focus point, please save the record and select an image first.</p>'
+                    '<p class="help-block">No image selected. To set a focus point, please select an image first and then save the record.</p>'
                 )
             ];
         }
