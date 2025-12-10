@@ -8,10 +8,7 @@ namespace MyCompany\App;
 
 use Sunnysideup\SetFocusPointFromAnywhere\Form\SetImageFocusField;
 
-/**
- * Image Element Block
- *
- */
+
 class ImageBlock extends DataObject (or BaseElement or whatever)
 {
 
@@ -40,3 +37,4 @@ class ImageBlock extends DataObject (or BaseElement or whatever)
 
 }
 ```
+
